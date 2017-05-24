@@ -11,7 +11,6 @@
 library(jsonlite)
 library(dplyr)
 
-
 ## Reading the JSON data
 train <- fromJSON("C:/Users/user/Documents/R projects/Kaggle/Two Sigma_Rental Listing Inquiries/train.json")
 
@@ -19,9 +18,9 @@ train <- fromJSON("C:/Users/user/Documents/R projects/Kaggle/Two Sigma_Rental Li
 vars <- setdiff(names(train), c("photos", "features"))
 train <- map_at(train, vars, unlist) %>% tibble::as_tibble(.)
 
-## w|o Features and photos
+## W|O features and photos
 train <- train %>% 
-  select(-features, -photos)
+           select(-features, -photos)
 
 ### Check whether there are any NA values
 
@@ -54,7 +53,7 @@ d <- train %>%
        group_by(street_address, price, interest_level) %>%
        summarise(n = sum(!is.na(street_address)))
 
-### Plotting price vs street_address(number of streets) +interest_level 
+### Plotting price vs street_address(number of streets) +interest_level----
 
 library(ggplot2)
 library(scales)
