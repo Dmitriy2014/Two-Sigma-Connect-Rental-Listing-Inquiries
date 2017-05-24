@@ -4,6 +4,7 @@
 # Link: https://www.kaggle.com/c/two-sigma-connect-rental-listing-inquiries
 ## My goal was to practice Text Mining basics
 
+
 #### Data preparation ####
 
 ### Load and preprocess the data----
@@ -12,13 +13,16 @@ library(jsonlite)
 library(dplyr)
 
 ## Reading the JSON data
+
 train <- fromJSON("C:/Users/user/Documents/R projects/Kaggle/Two Sigma_Rental Listing Inquiries/train.json")
 
 ## unlist every variable except `photos` and `features` and convert to tibble
+
 vars <- setdiff(names(train), c("photos", "features"))
 train <- map_at(train, vars, unlist) %>% tibble::as_tibble(.)
 
 ## W|O features and photos
+
 train <- train %>% 
            select(-features, -photos)
 
