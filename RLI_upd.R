@@ -360,7 +360,6 @@ ggraph(bigram_graph, layout = "fr") +
   geom_node_point() +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1)
 
-
 ## Plot_update (including some polishing operations to make a better looking graph)
 
 set.seed(2016)
