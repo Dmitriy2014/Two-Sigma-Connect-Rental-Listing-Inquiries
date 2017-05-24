@@ -19,7 +19,8 @@ train <- fromJSON("C:/Users/user/Documents/R projects/Kaggle/Two Sigma_Rental Li
 ## unlist every variable except `photos` and `features` and convert to tibble
 
 vars <- setdiff(names(train), c("photos", "features"))
-train <- map_at(train, vars, unlist) %>% tibble::as_tibble(.)
+train <- map_at(train, vars, unlist) %>% 
+                              tibble::as_tibble(.)
 
 ## W|O features and photos
 
@@ -37,13 +38,13 @@ ggplot_missing <- function(x){
     melt %>%
     ggplot(aes(x = Var2,
                y = Var1)) +
-    geom_raster(aes(fill = value)) +
-    scale_fill_grey(name = "",
-                    labels = c("Present","Missing")) +
-    theme_minimal() + 
-    theme(axis.text.x  = element_text(angle=45, vjust=0.5)) + 
-    labs(x = "Variables in Dataset",
-         y = "Rows / observations")
+        geom_raster(aes(fill = value)) +
+        scale_fill_grey(name = "",
+                        labels = c("Present","Missing")) +
+        theme_minimal() + 
+        theme(axis.text.x  = element_text(angle=45, vjust=0.5)) + 
+        labs(x = "Variables in Dataset",
+             y = "Rows / observations")
 }
 
 ggplot_missing(train)
@@ -65,13 +66,13 @@ library(scales)
 d %>% 
   ggplot(aes(x = n,
              y = price)) + 
-  theme(legend.position="top",
-        axis.text=element_text(size = 6)) +
-  geom_point(aes(color = as.character(interest_level)), alpha = 0.5, size = 1.5, 
-             position = position_jitter(width = 0.25, height = 0)) + 
-  stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median,
-               geom = "crossbar", width = 0.5) + 
-  scale_y_continuous(labels = comma)
+     theme(legend.position="top",
+           axis.text=element_text(size = 6)) +
+     geom_point(aes(color = as.character(interest_level)), alpha = 0.5, size = 1.5, 
+                    position = position_jitter(width = 0.25, height = 0)) + 
+     stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median,
+                  geom = "crossbar", width = 0.5) + 
+     scale_y_continuous(labels = comma)
 
 ## Deepper look on previous plot
 
@@ -79,13 +80,13 @@ d %>%
   filter(price < 25000) %>% 
       ggplot(aes(x = n, 
                  y = price)) + 
-      theme(legend.position="top",
-            axis.text=element_text(size = 6)) +
-      geom_point(aes(color = interest_level), alpha = 0.5, size = 1.5, 
-                     position = position_jitter(width = 0.25, height = 0)) + 
-      stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median,
-                   geom = "crossbar", width = 0.5) + 
-      scale_y_continuous(labels = comma)
+         theme(legend.position="top",
+               axis.text=element_text(size = 6)) +
+          geom_point(aes(color = interest_level), alpha = 0.5, size = 1.5, 
+                         position = position_jitter(width = 0.25, height = 0)) + 
+          stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median,
+                       geom = "crossbar", width = 0.5) + 
+          scale_y_continuous(labels = comma)
 
 
 #### Text processing - "description feature" using tm and NLP ####
@@ -243,8 +244,8 @@ bing_and_nrc <- bind_rows(tidys %>%
 
 bind_rows(afinn, bing_and_nrc) %>%
                         ggplot(aes(index, sentiment, fill = method)) +
-                        geom_bar(stat = "identity", show.legend = FALSE) +
-                        facet_wrap(~method, ncol = 1, scales = "free_y")
+                          geom_bar(stat = "identity", show.legend = FALSE) +
+                          facet_wrap(~method, ncol = 1, scales = "free_y")
 
 
 ### Word frequencies----
@@ -285,7 +286,7 @@ nrc_word_counts %>%
           group_by(sentiment) %>%
           top_n(10) %>%
           mutate(word = reorder(word, n)) %>%
-            ggplot(aes(word, n, fill = sentiment)) +
+          ggplot(aes(word, n, fill = sentiment)) +
             geom_bar(stat = "identity", show.legend = FALSE) +
             facet_wrap(~sentiment, scales = "free_y") +
             labs(y = "Contribution to sentiment using NRC",
