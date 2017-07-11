@@ -11,6 +11,7 @@
 
 library(jsonlite)
 library(dplyr)
+library(purrr)
 
 ## Reading the JSON data
 
